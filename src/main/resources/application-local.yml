@@ -4,4 +4,8 @@ spring:
     path: '/console'
   datasource:
     url: 'jdbc:h2:file:D:/SPRING/KURS/todoapp/todo-db'
-
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    baseline-on-migrate: true
