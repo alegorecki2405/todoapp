@@ -11,13 +11,15 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @NotBlank(message = "Task's description must not be empty")
     private String description;
     private boolean done;
     private LocalDateTime deadline;
-    private LocalDateTime createdOn;
-    private LocalDateTime updatedOn;
+    @Embedded
+    private Audit audit = new Audit();
+    @ManyToOne
+    @JoinColumn(name="task_group_id")
+    private TaskGroup group;
 
     public Task() {
     }
@@ -54,19 +56,14 @@ public class Task {
         this.deadline = deadline;
     }
 
+    public TaskGroup getGroup() {
+        return group;
+    }
+
     public void updateFrom(final Task source) {
         description = source.description;
         done = source.done;
         deadline = source.deadline;
-    }
-
-    @PrePersist
-    void prePersist() {
-        createdOn = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    void preUpdate() {
-        updatedOn = LocalDateTime.now();
+        group = source.group;
     }
 }

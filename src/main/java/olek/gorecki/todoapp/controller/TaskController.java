@@ -54,7 +54,9 @@ public class TaskController {
         }
         repository.findById(id)
                 .ifPresent(task -> {
-                    task.setDone(!task.isDone());
+                    task.setDone(toUpdate.isDone());
+                    task.setDescription(toUpdate.getDescription());
+                    task.setDeadline(toUpdate.getDeadline());
                     repository.save(task);
                 });
         return ResponseEntity.noContent().build();
