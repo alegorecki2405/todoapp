@@ -9,5 +9,4 @@ class TodoappApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

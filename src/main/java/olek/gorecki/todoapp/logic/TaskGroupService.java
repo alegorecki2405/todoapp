@@ -5,12 +5,10 @@ import olek.gorecki.todoapp.model.TaskGroupRepository;
 import olek.gorecki.todoapp.model.TaskRepository;
 import olek.gorecki.todoapp.model.projection.GroupReadModel;
 import olek.gorecki.todoapp.model.projection.GroupWriteModel;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
 public class TaskGroupService {
     private TaskGroupRepository repository;
     private TaskRepository taskRepository;
@@ -37,7 +35,7 @@ public class TaskGroupService {
             throw new IllegalStateException("Group has undone tasks. Done all the tasks first");
         }
         TaskGroup result = repository.findById(groupId)
-                .orElseThrow(() -> new IllegalArgumentException("TaskGroup with given id not found "));
+                .orElseThrow(() -> new IllegalArgumentException("TaskGroup with given id not found"));
         result.setDone(!result.isDone());
         repository.save(result);
     }

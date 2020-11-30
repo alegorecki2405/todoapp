@@ -18,7 +18,7 @@ public class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository repository;
 
-    public TaskController(TaskRepository repository) {
+    public TaskController(final TaskRepository repository) {
         this.repository = repository;
     }
 

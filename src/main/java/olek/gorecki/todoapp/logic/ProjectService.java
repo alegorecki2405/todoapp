@@ -3,13 +3,11 @@ package olek.gorecki.todoapp.logic;
 import olek.gorecki.todoapp.TaskConfigurationProperties;
 import olek.gorecki.todoapp.model.*;
 import olek.gorecki.todoapp.model.projection.GroupReadModel;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
 public class ProjectService {
     private ProjectRepository repository;
     private TaskGroupRepository taskGroupRepository;
