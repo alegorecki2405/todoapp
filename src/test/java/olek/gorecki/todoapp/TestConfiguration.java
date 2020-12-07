@@ -75,6 +75,11 @@ public class TestConfiguration {
             public boolean existsByDoneIsFalseAndGroup_Id(Integer groupId) {
                 return false;
             }
+
+            @Override
+            public List<Task> findAllByGroup_Id(Integer groupId) {
+                return List.of();
+            }
         };
     }
 }
