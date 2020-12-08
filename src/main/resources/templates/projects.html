@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Todo App: projects</title>
+    <link href="https://igoradamenko.github.io/awsm.css/css/awsm_theme_pastel-pink.min.css" rel="stylesheet">
+    <style>
+        .Bd {
+            border: solid 1px black;
+        }
+
+        .P\(0\) {
+            padding: 0;
+        }
+
+        .P\(10px\) {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <!--/*@thymesVar id="message" type="java.lang.String"*/-->
+    <h1 th:if="${message != null}" th:text="${message}"></h1>
+    <!--/*@thymesVar id="projects" type="java.util.List<olek.gorecki.todoapp.model.Project>"*/-->
+    <dl class="Bd P(10px)" th:each="project : ${projects}">
+        <dt th:text="${project.description}">...</dt>
+        <dd>
+            <ul class="P(0)">
+                <li th:each="step : ${project.steps}" th:text="|${step.description} (${step.daysToDeadline} dni)|"></li>
+            </ul>
+        </dd>
+    </dl>
+    <fieldset>
+        <!--/*@thymesVar id="project" type="olek.gorecki.todoapp.model.projection.ProjectWriteModel"*/-->
+        <form action="#" method="post" th:action="@{/projects}" th:object="${project}">
+            <legend>Nowy projekt</legend>
+            <label>Opis
+                <input th:field="*{description}" type="text"/>
+            </label>
+            <fieldset th:each="step,stepStat : *{steps}">
+                <legend th:text="|Krok ${stepStat.index + 1}|"></legend>
+                <label>Opis
+                    <input th:field="*{steps[__${stepStat.index}__].description}" type="text"/>
+                </label>
+                <label>Dni do końca projektu
+                    <input th:field="*{steps[__${stepStat.index}__].daysToDeadline}" type="number"/>
+                </label>
+            </fieldset>
+            <div>
+                <button name="addStep" type="submit">+</button>
+            </div>
+            <p>
+                <button type="submit">Dodaj</button>
+                <button type="reset">Wyczyść</button>
+            </p>
+        </form>
+    </fieldset>
+
+</main>
+</body>
+</html>

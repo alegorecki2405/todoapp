@@ -1,5 +1,6 @@
 package olek.gorecki.todoapp.logic;
 
+import olek.gorecki.todoapp.model.Project;
 import olek.gorecki.todoapp.model.TaskGroup;
 import olek.gorecki.todoapp.model.TaskGroupRepository;
 import olek.gorecki.todoapp.model.TaskRepository;
@@ -19,10 +20,15 @@ public class TaskGroupService {
         this.taskRepository = taskRepository;
     }
 
-    public GroupReadModel createGroup(GroupWriteModel source) {
-        TaskGroup result = repository.save(source.toGroup());
+    public GroupReadModel createGroup(final GroupWriteModel source) {
+        return createGroup(source, null);
+    }
+
+    public GroupReadModel createGroup(final GroupWriteModel source, final Project project) {
+        TaskGroup result = repository.save(source.toGroup(project));
         return new GroupReadModel(result);
     }
+
 
     public List<GroupReadModel> readAll() {
         return repository.findAll().stream()
@@ -39,4 +45,5 @@ public class TaskGroupService {
         result.setDone(!result.isDone());
         repository.save(result);
     }
+
 }
