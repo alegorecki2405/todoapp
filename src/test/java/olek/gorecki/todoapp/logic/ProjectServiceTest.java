@@ -118,7 +118,7 @@ class ProjectServiceTest {
 
     private TaskGroupRepository groupRepostioryReturning(final boolean result) {
         var mockGroupRepository = mock(TaskGroupRepository.class);
-        when(mockGroupRepository.existsByIdIsFalseAndProject_Id(anyInt())).thenReturn(result);
+        when(mockGroupRepository.existsByDoneIsFalseAndProject_Id(anyInt())).thenReturn(result);
         return mockGroupRepository;
     }
 
@@ -168,7 +168,7 @@ class ProjectServiceTest {
         }
 
         @Override
-        public boolean existsByIdIsFalseAndProject_Id(Integer projectId) {
+        public boolean existsByDoneIsFalseAndProject_Id(Integer projectId) {
             return map.values().stream().filter(group -> !group.isDone())
                     .anyMatch(group -> group.getProject() != null && group.getProject().getId() == projectId);
         }
