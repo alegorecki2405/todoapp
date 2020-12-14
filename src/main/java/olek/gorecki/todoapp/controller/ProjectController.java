@@ -1,5 +1,6 @@
 package olek.gorecki.todoapp.controller;
 
+import io.micrometer.core.annotation.Timed;
 import olek.gorecki.todoapp.logic.ProjectService;
 import olek.gorecki.todoapp.model.Project;
 import olek.gorecki.todoapp.model.ProjectStep;
@@ -51,6 +52,7 @@ class ProjectController {
         return "projects";
     }
 
+    @Timed(value = "project.create.group", histogram = true, percentiles = {0.5, 0.95, 0.99})
     @PostMapping("/{id}")
     String createGroup(
             @ModelAttribute("project") ProjectWriteModel current,
