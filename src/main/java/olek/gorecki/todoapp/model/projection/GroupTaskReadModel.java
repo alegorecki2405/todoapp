@@ -3,27 +3,27 @@ package olek.gorecki.todoapp.model.projection;
 import olek.gorecki.todoapp.model.Task;
 
 public class GroupTaskReadModel {
-    private boolean done;
     private String description;
+    private boolean done;
 
-    public GroupTaskReadModel(Task source) {
-        done = source.isDone();
+    GroupTaskReadModel(Task source) {
         description = source.getDescription();
-    }
-
-    public boolean isDone() {
-        return done;
-    }
-
-    public void setDone(boolean done) {
-        this.done = done;
+        done = source.isDone();
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(final boolean done) {
+        this.done = done;
     }
 }

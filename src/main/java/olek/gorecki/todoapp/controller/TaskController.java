@@ -15,17 +15,23 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tasks")
-public class TaskController {
+class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository repository;
 
-    public TaskController(final TaskRepository repository) {
+    TaskController(final TaskRepository repository) {
         this.repository = repository;
+    }
+
+    @PostMapping
+    ResponseEntity<Task> createTask(@RequestBody @Valid Task toCreate) {
+        Task result = repository.save(toCreate);
+        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 
     @GetMapping(params = {"!sort", "!page", "!size"})
     ResponseEntity<List<Task>> readAllTasks() {
-        logger.warn("Exposing all the tasks");
+        logger.warn("Exposing all the tasks!");
         return ResponseEntity.ok(repository.findAll());
     }
 
@@ -36,7 +42,7 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Task> readTask(@PathVariable int id){
+    ResponseEntity<Task> readTask(@PathVariable int id) {
         return repository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -49,12 +55,6 @@ public class TaskController {
         );
     }
 
-    @PostMapping
-    ResponseEntity<Task> createTask(@RequestBody @Valid Task toCreate) {
-        Task result = repository.save(toCreate);
-        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
-    }
-
     @PutMapping("/{id}")
     ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody @Valid Task toUpdate) {
         if (!repository.existsById(id)) {
@@ -62,9 +62,7 @@ public class TaskController {
         }
         repository.findById(id)
                 .ifPresent(task -> {
-                    task.setDone(toUpdate.isDone());
-                    task.setDescription(toUpdate.getDescription());
-                    task.setDeadline(toUpdate.getDeadline());
+                    task.updateFrom(toUpdate);
                     repository.save(task);
                 });
         return ResponseEntity.noContent().build();

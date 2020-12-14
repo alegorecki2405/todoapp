@@ -8,15 +8,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.Set;
 
 @Configuration
-public class MvcConfiguration implements WebMvcConfigurer {
+class MvcConfiguration implements WebMvcConfigurer {
     private Set<HandlerInterceptor> interceptors;
 
-    public MvcConfiguration(Set<HandlerInterceptor> interceptors) {
+    MvcConfiguration(final Set<HandlerInterceptor> interceptors) {
         this.interceptors = interceptors;
     }
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(final InterceptorRegistry registry) {
         interceptors.forEach(registry::addInterceptor);
     }
 }
+

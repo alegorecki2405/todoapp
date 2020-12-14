@@ -7,36 +7,24 @@ import java.util.Set;
 @Entity
 @Table(name = "projects")
 public class Project {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @NotBlank(message = "Project's description must not be empty")
     private String description;
-
     @OneToMany(mappedBy = "project")
     private Set<TaskGroup> groups;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     private Set<ProjectStep> steps;
 
     public Project() {
     }
 
-    public Set<ProjectStep> getSteps() {
-        return steps;
-    }
-
-    public void setSteps(Set<ProjectStep> steps) {
-        this.steps = steps;
-    }
-
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    void setId(final int id) {
         this.id = id;
     }
 
@@ -44,15 +32,23 @@ public class Project {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
-    public Set<TaskGroup> getGroups() {
+    Set<TaskGroup> getGroups() {
         return groups;
     }
 
-    public void setGroups(Set<TaskGroup> groups) {
+    void setGroups(final Set<TaskGroup> groups) {
         this.groups = groups;
+    }
+
+    public Set<ProjectStep> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(final Set<ProjectStep> steps) {
+        this.steps = steps;
     }
 }

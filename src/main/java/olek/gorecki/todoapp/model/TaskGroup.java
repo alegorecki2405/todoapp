@@ -7,7 +7,6 @@ import java.util.Set;
 @Entity
 @Table(name = "task_groups")
 public class TaskGroup {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -20,14 +19,6 @@ public class TaskGroup {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
     public TaskGroup() {
     }
 
@@ -35,7 +26,7 @@ public class TaskGroup {
         return id;
     }
 
-    void setId(int id) {
+    void setId(final int id) {
         this.id = id;
     }
 
@@ -43,7 +34,7 @@ public class TaskGroup {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -51,7 +42,7 @@ public class TaskGroup {
         return done;
     }
 
-    public void setDone(boolean done) {
+    public void setDone(final boolean done) {
         this.done = done;
     }
 
@@ -59,7 +50,16 @@ public class TaskGroup {
         return tasks;
     }
 
-    public void setTasks(Set<Task> tasks) {
+    public void setTasks(final Set<Task> tasks) {
         this.tasks = tasks;
     }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(final Project project) {
+        this.project = project;
+    }
 }
+

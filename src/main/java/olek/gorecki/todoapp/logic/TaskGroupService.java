@@ -14,8 +14,7 @@ public class TaskGroupService {
     private TaskGroupRepository repository;
     private TaskRepository taskRepository;
 
-
-    public TaskGroupService(TaskGroupRepository repository, TaskRepository taskRepository) {
+    TaskGroupService(final TaskGroupRepository repository, final TaskRepository taskRepository) {
         this.repository = repository;
         this.taskRepository = taskRepository;
     }
@@ -24,11 +23,10 @@ public class TaskGroupService {
         return createGroup(source, null);
     }
 
-    public GroupReadModel createGroup(final GroupWriteModel source, final Project project) {
+    GroupReadModel createGroup(final GroupWriteModel source, final Project project) {
         TaskGroup result = repository.save(source.toGroup(project));
         return new GroupReadModel(result);
     }
-
 
     public List<GroupReadModel> readAll() {
         return repository.findAll().stream()
@@ -45,5 +43,4 @@ public class TaskGroupService {
         result.setDone(!result.isDone());
         repository.save(result);
     }
-
 }

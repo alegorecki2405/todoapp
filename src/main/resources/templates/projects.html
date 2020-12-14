@@ -4,10 +4,18 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Todo App: projects</title>
-    <link href="https://igoradamenko.github.io/awsm.css/css/awsm_theme_pastel-pink.min.css" rel="stylesheet">
+    <link href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css" rel="stylesheet">
     <style>
         .Bd {
             border: solid 1px black;
+        }
+
+        .Bdc\(red\) {
+            border-color: red !important;
+        }
+
+        .C\(red\) {
+            color: red;
         }
 
         .P\(0\) {
@@ -17,21 +25,11 @@
         .P\(10px\) {
             padding: 10px;
         }
-
-        .C\(red\) {
-            color: red;
-        }
-
-        .Bdc\(red\) {
-            border-color: red !important;
-        }
     </style>
 </head>
 <body>
 <main>
-    <!--/*@thymesVar id="message" type="java.lang.String"*/-->
     <h1 th:if="${message != null}" th:text="${message}"></h1>
-    <!--/*@thymesVar id="projects" type="java.util.List<olek.gorecki.todoapp.model.Project>"*/-->
     <dl class="Bd P(10px)" th:each="project : ${projects}">
         <dt th:text="${project.description}">...</dt>
         <dd>
@@ -47,10 +45,9 @@
         </dd>
     </dl>
     <fieldset>
-        <!--/*@thymesVar id="project" type="olek.gorecki.todoapp.model.projection.ProjectWriteModel"*/-->
+        <legend>Nowy projekt</legend>
         <form action="#" method="post" th:action="@{/projects}" th:object="${project}">
             <p class="C(red)" th:errors="*{all}" th:if="${#fields.hasAnyErrors()}"></p>
-            <legend>Nowy projekt</legend>
             <label>Opis
                 <input th:errorclass="'Bdc(red)'" th:field="*{description}" type="text"/>
             </label>
@@ -74,7 +71,6 @@
             </p>
         </form>
     </fieldset>
-
 </main>
 </body>
 </html>
