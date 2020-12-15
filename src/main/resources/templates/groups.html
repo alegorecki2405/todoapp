@@ -46,7 +46,6 @@
         <dd>
             <a th:href="@{/tasks.html(group=${group.id})}">
                 <ul class="P(0)">
-                    dupad udpaduapd
                     <li th:each="task : ${group.tasks}">
                         <span th:text="${task.description}" th:unless="${task.done}"></span>
                         <del th:if="${task.done}" th:text="${task.description}"></del>
